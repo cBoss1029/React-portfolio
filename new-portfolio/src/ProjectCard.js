@@ -7,7 +7,7 @@ class ProjectCard extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="Card">
         <h5>{this.props.name}</h5>
         <img className = "project-image" src={window.location.origin + this.props.imgSrc}></img>
       </div>
