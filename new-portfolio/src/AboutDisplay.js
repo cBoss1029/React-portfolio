@@ -12,7 +12,7 @@ class AboutDisplay extends Component {
           <h3>About Cory</h3>
         </div>
         <div className = 'aboutBody'>
-          <p>
+          <p className= 'about-text'>
           Hi, I'm Cory. I am a web developer in training. I have an intermediate knowledge of HTML, CSS, and Javascript which I am working to improve on a daily basis. Below you'll find a collection of projects and assignments I have completed during my time at Austin Coding Academy.
           </p>
         </div>
