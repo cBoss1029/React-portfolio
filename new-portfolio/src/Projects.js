@@ -3,20 +3,23 @@ import logo from './logo.svg';
 import './App.css';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import { CSSTransitionGroup } from 'react-transition-group'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import fontawesome from '@fortawesome/fontawesome'
-import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
-
-
+import { CSSTransitionGroup } from 'react-transition-group';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import fontawesome from '@fortawesome/fontawesome';
+import brands from '@fortawesome/fontawesome-free-brands';
+import faGithubSquare from '@fortawesome/fontawesome-free-brands/faGithubSquare';
+import faLinkedin from '@fortawesome/fontawesome-free-brands/faLinkedin';
+import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
+import faEnvelopeSquare from '@fortawesome/fontawesome-free-solid/faEnvelopeSquare';
 import AboutDisplay from './AboutDisplay';
 import ProjectCard from './ProjectCard';
 import Header from './Header';
+import ContactCard from './ContactCard';
 
 
 
 const projectInfo = [
-  {name: 'Airplane', img: '/img/airplane.png', href: 'https://cboss1029.github.io/web-workbook/03week/airplane/index.html', description: 'This is a web page I had to replicate when learning CSS early on. The purpose of this assignment was to get familiar with the Box Model, its components, as well as position and its properites.'},
+  {name: 'UX Atlantic', img: '/img/airplane.png', href: 'https://cboss1029.github.io/web-workbook/03week/airplane/index.html', description: 'This is a web page I had to replicate when learning CSS early on. The purpose of this assignment was to get familiar with the Box Model, its components, as well as position and its properites.'},
   {name: 'Bootstrap', img: '/img/bootstrap.png', href: 'https://cboss1029.github.io/web-workbook/05week/news-website/index.html', description: 'Another mock news site. The purpose of this one was to act as an introduction to Bootstrap.'},
   {name: 'Dice', img: '/img/dice.png', href: 'https://codepen.io/anon/pen/zPdPWO?editors=0010', description: 'The focus of this assignment was JS conditionals and loops. Five dice are rolled at random and the results are reported in the text area.'},
   {name: 'Tic-Tac-Toe', img: '/img/tic-tac-toe.png', href: 'https://cboss1029.github.io/web-workbook/08week/tic-tac-toe/index.html', description: 'More practice with JS conditional statements, but with a focus on DOM manipulation using jQuery.'},
@@ -24,6 +27,14 @@ const projectInfo = [
   {name: 'Transition', img: '/img/transition.png', href: 'https://cboss1029.github.io/web-workbook/05week/transitions-and-transformations/index.html', description: 'This was an exercise in CSS transitions. Half of the squares spin clockwise and move to the right of the screen, while the other half spins counterclockwise and move to the left.'},
   {name: 'Tuccis', img: '/img/tuccis.png', href: 'https://cboss1029.github.io/checkpoint1/index.html', description: 'For this project I had to build a website for a business. I chose to replicate the home page of my favorite sandwich shop. I focused on making better use of semantic elements in my HTML. From a visual standpoint it is exactly the same as the original.'},
   {name: 'Welcome', img: '/img/welcome.png', href: 'https://cboss1029.github.io/web-workbook/04week/welcome-to-our-site/index.html', description: 'This is another media query exercise. Although it is only formatted for desktop and mobile displays I find it to be more visually appealing than the news site.'},
+];
+
+const contactInfo = [
+  {href: "https://github.com/cBoss1029", icon: faGithubSquare, title: "GitHub"},
+  {href: "https://www.linkedin.com/in/cory-bosselmann-9453a0129/", icon: faLinkedin, title: "LinkedIn"},
+  {href: "https://www.facebook.com/cbosselmann", icon: faFacebookSquare, title: "Facebook"},
+  {href: "mailto:cbosselmann1029@gmail.com", icon: faEnvelopeSquare, title: "Email"},
+
 ];
 
 
@@ -54,21 +65,22 @@ const styles = {
     height: 'auto',
     backgroundColor: '#C0C0C0'
   }
+
 };
-const element = (
-  <FontAwesomeIcon icon={faCoffee} />
-)
+
 
 
 
 class Projects extends Component {
   state = {
     projects: null,
+    contacts: null,
     slideIndex: 0,
   };
 
   componentDidMount(){
-    this.setState({projects: projectInfo})
+    this.setState({projects: projectInfo});
+    this.setState({contacts: contactInfo});
   }
 
   handleChange = (value) => {
@@ -78,17 +90,24 @@ class Projects extends Component {
     };
 
 
-  renderCards(){
+  renderProjectCards(){
     if (this.state.projects){
       return this.state.projects.map((obj, key) =>{
         return <ProjectCard name={obj.name} imgSrc={obj.img} href={obj.href} description={obj.description} key= {key}/>
       })
     }
-  }
+  };
 
-  renderHeader() {
-    return <Header/>
-  }
+  renderContactCards(){
+    if (this.state.contacts){
+      return this.state.contacts.map((obj, key) =>{
+        return <ContactCard href = {obj.href} icon = {obj.icon} title = {obj.title} key = {key}/>
+      })
+    }
+  };
+
+
+
 
   render() {
     return (
@@ -122,11 +141,10 @@ class Projects extends Component {
           </p>
         </div>
         <div style={styles.slide}>
-          {this.renderCards()}
+          {this.renderProjectCards()}
         </div>
-        <div style={styles.slide}>
-
-           <FontAwesomeIcon icon={faCoffee} />
+        <div className = 'contact' style={styles.slide}>
+           {this.renderContactCards()}
         </div>
       </SwipeableViews>
 
