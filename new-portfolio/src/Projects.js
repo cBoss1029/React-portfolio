@@ -68,6 +68,12 @@ const styles = {
 
 };
 
+/*Notes for Later*/
+/*
+-Remember to add shadow to icons
+-Link the tabs to bring the selected slide to the top of its content
+-add onClick API call in 'About' section
+*/
 
 
 
