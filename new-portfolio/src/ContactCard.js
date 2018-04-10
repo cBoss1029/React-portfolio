@@ -11,7 +11,7 @@ class ContactCard extends Component {
   render() {
     return (
       <div className = 'icon'>
-				<a href = {this.props.href} title = {this.props.title}><FontAwesomeIcon icon = {this.props.icon} className = 'iconStyle'/></a>
+				<a className = 'iconStyle' href = {this.props.href} title = {this.props.title}><FontAwesomeIcon icon = {this.props.icon} className = 'iconStyle'/></a>
 		  </div>
 
 

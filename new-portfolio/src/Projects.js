@@ -15,6 +15,7 @@ import AboutDisplay from './AboutDisplay';
 import ProjectCard from './ProjectCard';
 import Header from './Header';
 import ContactCard from './ContactCard';
+import QuoteCard from './QuoteCard';
 
 
 
@@ -82,6 +83,7 @@ class Projects extends Component {
     projects: null,
     contacts: null,
     slideIndex: 0,
+    ronQuote: null,
   };
 
   componentDidMount(){
@@ -95,6 +97,36 @@ class Projects extends Component {
       });
     };
 
+  handleApiButton=()=>{
+    fetch("http://ron-swanson-quotes.herokuapp.com/v2/quotes")
+      .then(res => res.json())
+      .then(
+        (data) => {
+
+          this.setState({
+            isLoaded: true,
+            ronQuote: data[0],
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
+
+
+// renderApiCall(){
+//   if(this.state.ronQuote){
+//     console.log(this.state.ronQuote);
+//     return <div><QuoteCard quote = {this.state.ronQuote}/></div>
+//   }
+// }
 
   renderProjectCards(){
     if (this.state.projects){
@@ -134,22 +166,25 @@ class Projects extends Component {
         style={styles.tabBar}
       >
         <Tab style= {styles.tabs} label="About" value={0} />
-        <Tab style= {styles.tabs} label="Work" value={1} />
+        <Tab style= {styles.tabs} label="Work" value={1}/>
         <Tab style= {styles.tabs} label="Contact" value={2} />
       </Tabs>
       <SwipeableViews
         index={this.state.slideIndex}
         onChangeIndex={this.handleChange}
       >
-        <div>
+        <div id = "aboutMe">
           <p className= 'about-body'>  Hi, I'm Cory. I am a web developer in training. I have an intermediate knowledge of HTML, CSS, and Javascript which I am working to improve on a daily basis. Below you'll find a collection of projects and assignments I have completed during my time at
           Austin Coding Academy.
           </p>
+          <button className = "apiButton" onClick = {this.handleApiButton}>Click here for Ron Swanson Quote!</button>
+          <p className = "apiQuote">{this.state.ronQuote}</p>
+
         </div>
-        <div style={styles.slide}>
+        <div id = "myProjects" style={styles.slide}>
           {this.renderProjectCards()}
         </div>
-        <div className = 'contact' style={styles.slide}>
+        <div id = "contactMe" className = 'contact' style={styles.slide}>
            {this.renderContactCards()}
         </div>
       </SwipeableViews>
